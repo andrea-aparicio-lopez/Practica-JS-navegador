@@ -1,0 +1,53 @@
+
+.seccion-ahorro-total {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid;
+}
+
+.seccion-desglose {
+    display: flex;
+    flex-direction: row;
+}
+
+.seccion-ingresos, .seccion-gastos {
+    padding: 10px 20px;
+    border: 1px solid grey;
+}
+
+
+/* FORMULARIO */
+
+#form-nueva-transaccion {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 40px;
+    align-items:stretch;
+}
+
+/* .form-nueva-transaccion .switch-input {
+
+} */
+
+
+#form-nueva-transaccion .switch-input-button {
+    display: none;
+}
+
+#form-nueva-transaccion .switch-input{
+    align-self: center;
+}
+
+#switch-ingreso:checked + label {
+    background-color: green;
+}
+#switch-gasto:checked + label {
+    background-color: red;
+}
+
+.switch-input-label {
+    padding: 10px 20px;
+    border: 1px solid black;
+}
