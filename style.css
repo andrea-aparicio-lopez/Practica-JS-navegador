@@ -51,3 +51,16 @@
     padding: 10px 20px;
     border: 1px solid black;
 }
+
+
+/* HISTORIAL */
+
+.transaccionElement {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    border: 1px solid lightgrey;
+    border-bottom-color: grey;
+    padding: 0 5%;
+}

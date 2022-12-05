@@ -1,5 +1,8 @@
 
 
+let historial = [];
+const historialElement = document.querySelector('#historial')
+
 // FORMULARIO
 const FormNuevaTransaccion = document.querySelector('#form-nueva-transaccion');
 
@@ -27,10 +30,14 @@ FormNuevaTransaccion.addEventListener("submit", (event) => {
 
     if (fechaTransaccion.value){
         transaccion.fecha = fechaTransaccion.value
+    }else{
+        // Añadir fecha actual
     }
 
     console.log(transaccion)
-    // tipoTransaccion.value  = '';
+    historial.unshift(transaccion)
+    PintarTransaccion(transaccion)
+
     for (const tipo of tipoTransaccion){
         if(tipo.checked){
             tipo.checked = false
@@ -39,10 +46,54 @@ FormNuevaTransaccion.addEventListener("submit", (event) => {
     conceptoTransaccion.value = '';
     cantidadTransaccion.value = '';
     fechaTransaccion.value = '';
+
+    // PintarTodoHistorial()
+    
 })
 
 
-function mostrarTransaccionHistorial() {
-    const transaccionElement = document.createElement('article')
+// sort historial por fecha
 
+function PintarTodoHistorial() {
+    historialElement.innerText = ''
+ historial.forEach(transaccion => {
+    const transaccionElement = document.createElement('article')
+    transaccionElement.setAttribute("class", "transaccionElement")
+    
+    const conceptoElement = document.createElement('p')
+    conceptoElement.setAttribute("class", "conceptoElement") 
+    conceptoElement.innerText = transaccion.concepto
+
+    const cantidadElement = document.createElement('p')
+    cantidadElement.setAttribute("class", "cantidadElement")
+    cantidadElement.innerText = transaccion.cantidad
+
+    transaccionElement.appendChild(conceptoElement)
+    transaccionElement.appendChild(cantidadElement)
+
+    historialElement.appendChild(transaccionElement)
+    
+ });
+}
+
+function PintarTransaccion(transaccion) {
+        const transaccionElement = document.createElement('article')
+        transaccionElement.setAttribute("class", "transaccionElement")
+        
+        const conceptoElement = document.createElement('p')
+        conceptoElement.setAttribute("class", "conceptoElement") 
+        conceptoElement.innerText = transaccion.concepto
+
+        const cantidadElement = document.createElement('p')
+        cantidadElement.setAttribute("class", "cantidadElement")
+        if(transaccion.tipo === 'ingreso'){
+            cantidadElement.innerHTML = `+${transaccion.cantidad} €`
+        }else{
+            cantidadElement.innerHTML = `-${transaccion.cantidad} €`
+        }
+
+        transaccionElement.appendChild(conceptoElement)
+        transaccionElement.appendChild(cantidadElement)
+
+        historialElement.prepend(transaccionElement)
 }
