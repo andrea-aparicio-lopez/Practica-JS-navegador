@@ -3,6 +3,7 @@
 let historial = [];
 const historialElement = document.querySelector('#historial')
 
+
 // FORMULARIO
 const FormNuevaTransaccion = document.querySelector('#form-nueva-transaccion');
 
@@ -25,7 +26,7 @@ FormNuevaTransaccion.addEventListener("submit", (event) => {
     let transaccion = {
         tipo: tipoTransaccionElegido,
         concepto: conceptoTransaccion.value,
-        cantidad: cantidadTransaccion.value,
+        cantidad: parseFloat(cantidadTransaccion.value),
     }
 
     if (fechaTransaccion.value){
@@ -36,7 +37,9 @@ FormNuevaTransaccion.addEventListener("submit", (event) => {
 
     console.log(transaccion)
     historial.unshift(transaccion)
-    PintarTransaccion(transaccion)
+    historial.map((transac, index) => transac.id = index + 1)
+    pintarTransaccion(transaccion)
+    pintarTotales()
 
     for (const tipo of tipoTransaccion){
         if(tipo.checked){
@@ -47,38 +50,23 @@ FormNuevaTransaccion.addEventListener("submit", (event) => {
     cantidadTransaccion.value = '';
     fechaTransaccion.value = '';
 
-    // PintarTodoHistorial()
+    // pintarTodoHistorial()
     
 })
 
 
+// HISTORIAL
 // sort historial por fecha
-
-function PintarTodoHistorial() {
+function pintarTodoHistorial() {
     historialElement.innerText = ''
- historial.forEach(transaccion => {
-    const transaccionElement = document.createElement('article')
-    transaccionElement.setAttribute("class", "transaccionElement")
-    
-    const conceptoElement = document.createElement('p')
-    conceptoElement.setAttribute("class", "conceptoElement") 
-    conceptoElement.innerText = transaccion.concepto
-
-    const cantidadElement = document.createElement('p')
-    cantidadElement.setAttribute("class", "cantidadElement")
-    cantidadElement.innerText = transaccion.cantidad
-
-    transaccionElement.appendChild(conceptoElement)
-    transaccionElement.appendChild(cantidadElement)
-
-    historialElement.appendChild(transaccionElement)
-    
- });
+    historial.forEach(transaccion => {
+        pintarTransaccion(transaccion)
+     });
 }
 
-function PintarTransaccion(transaccion) {
+function pintarTransaccion(transaccion) {
         const transaccionElement = document.createElement('article')
-        transaccionElement.setAttribute("class", "transaccionElement")
+        transaccionElement.setAttribute("id", transaccion.id)
         
         const conceptoElement = document.createElement('p')
         conceptoElement.setAttribute("class", "conceptoElement") 
@@ -87,13 +75,86 @@ function PintarTransaccion(transaccion) {
         const cantidadElement = document.createElement('p')
         cantidadElement.setAttribute("class", "cantidadElement")
         if(transaccion.tipo === 'ingreso'){
-            cantidadElement.innerHTML = `+${transaccion.cantidad} €`
+            cantidadElement.innerHTML = `+ ${transaccion.cantidad} €`
+            transaccionElement.setAttribute("class", "transaccionIngresoElement")
         }else{
-            cantidadElement.innerHTML = `-${transaccion.cantidad} €`
+            cantidadElement.innerHTML = `- ${transaccion.cantidad} €`
+            transaccionElement.setAttribute("class", "transaccionGastoElement")
         }
 
         transaccionElement.appendChild(conceptoElement)
         transaccionElement.appendChild(cantidadElement)
 
+        const deleteButtonElement = document.createElement('button')
+        deleteButtonElement.setAttribute("class", "botonBorrar")
+        deleteButtonElement.innerHTML = `🗙`
+
+        transaccionElement.append(deleteButtonElement)
         historialElement.prepend(transaccionElement)
+        
+        deleteButtonElement.onclick = function(){borrarDelHistorial(transaccion)}
+        
 }
+
+
+function borrarDelHistorial(transaccion) {
+    const index = historial.indexOf(transaccion)
+    historial.splice(index,1)
+    pintarTodoHistorial()
+}
+
+
+// TOTALES
+const ingresoTotalElement = document.querySelector('#ingreso-total')
+const gastoTotalElement = document.querySelector('#gasto-total')
+const ahorroTotalElement = document.querySelector('#ahorro-total')
+
+function obtenerIngresoTotal() {
+    let total = 0
+    historial.forEach((transaccion) => {
+        if(transaccion.tipo === 'ingreso'){
+            total += transaccion.cantidad
+        }
+    })
+    return total
+}
+
+function pintarIngresoTotal() {
+    ingresoTotalElement.innerHTML = `
+    ${obtenerIngresoTotal()} €
+    `
+}
+
+function obtenerGastoTotal() {
+    let total = 0
+    historial.forEach((transaccion) => {
+        if(transaccion.tipo === 'gasto'){
+            total += transaccion.cantidad
+        }
+    })
+    return total
+}
+
+function pintarGastoTotal() {
+    gastoTotalElement.innerHTML = `
+    ${obtenerGastoTotal()} €
+    `
+}
+
+function obtenerAhorro() {
+    return obtenerIngresoTotal() - obtenerGastoTotal()
+}
+
+function pintarAhorro() {
+ ahorroTotalElement.innerHTML = `
+ ${obtenerAhorro()} €
+ `
+}
+
+function pintarTotales(){
+    pintarAhorro();
+    pintarIngresoTotal();
+    pintarGastoTotal();
+}
+
+

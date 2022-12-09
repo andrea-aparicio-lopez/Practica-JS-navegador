@@ -1,3 +1,24 @@
+/* LAYOUT */
+:root {
+    --background-color: rgb(246, 246, 246);
+    --main-heading-color: rgb(18, 63, 72);
+    --transacciones: white;
+    --color-ingreso: rgb(187, 217, 187);
+    --color-gasto: rgb(215, 136, 136);
+}
+
+body {
+    padding: 0 10%;
+    background-color: var(--background-color);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.subheading, .titulo-principal {
+    color: var(--main-heading-color);
+}
+
+
+/* AHORROS */
 
 .seccion-ahorro-total {
     display: flex;
@@ -41,10 +62,10 @@
 }
 
 #switch-ingreso:checked + label {
-    background-color: green;
+    background-color: var(--color-ingreso);
 }
 #switch-gasto:checked + label {
-    background-color: red;
+    background-color: var(--color-gasto);
 }
 
 .switch-input-label {
@@ -54,13 +75,27 @@
 
 
 /* HISTORIAL */
-
-.transaccionElement {
-    display: flex;
+.transaccionIngresoElement, .transaccionGastoElement {
+    /* display: flex;
     flex-direction: row;
     justify-content: space-between;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; */
+    display: grid;
+    grid-template-columns: 70% 20% 10%;
     border: 1px solid lightgrey;
     border-bottom-color: grey;
-    padding: 0 5%;
+    padding-left: 5%;
+}
+
+.transaccionIngresoElement {
+    background: linear-gradient(to left, var(--color-ingreso), var(--transacciones) 25%);
+}
+
+.transaccionGastoElement {
+    background: linear-gradient(to left, var(--color-gasto), var(--transacciones) 25%);
+}
+
+.cantidadElement {
+    justify-self: end;
+    padding-right: 10%;
 }
