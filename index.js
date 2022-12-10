@@ -1,8 +1,17 @@
 
-
 let historial = [];
 const historialElement = document.querySelector('#historial')
 
+
+//LOCAL STORAGE
+function recuperarHistorial() {
+    const historialLocalStorage = localStorage.getItem('historial')
+    if (historialLocalStorage !== null){
+        historial = JSON.parse(historialLocalStorage)
+    }
+    pintarTodoHistorial()
+    
+}
 
 // FORMULARIO
 const FormNuevaTransaccion = document.querySelector('#form-nueva-transaccion');
@@ -35,11 +44,15 @@ FormNuevaTransaccion.addEventListener("submit", (event) => {
         // Añadir fecha actual
     }
 
-    console.log(transaccion)
+    // console.log(transaccion)
     historial.unshift(transaccion)
     historial.map((transac, index) => transac.id = index + 1)
-    pintarTransaccion(transaccion)
+    pintarTodoHistorial()
+    // pintarTransaccion(transaccion)
     pintarTotales()
+    
+    //localStorage.clear()
+    localStorage.setItem('historial', JSON.stringify(historial))
 
     for (const tipo of tipoTransaccion){
         if(tipo.checked){
@@ -49,8 +62,6 @@ FormNuevaTransaccion.addEventListener("submit", (event) => {
     conceptoTransaccion.value = '';
     cantidadTransaccion.value = '';
     fechaTransaccion.value = '';
-
-    // pintarTodoHistorial()
     
 })
 
@@ -90,7 +101,7 @@ function pintarTransaccion(transaccion) {
         deleteButtonElement.innerHTML = `🗙`
 
         transaccionElement.append(deleteButtonElement)
-        historialElement.prepend(transaccionElement)
+        historialElement.append(transaccionElement)
         
         deleteButtonElement.onclick = function(){borrarDelHistorial(transaccion)}
         
@@ -100,7 +111,9 @@ function pintarTransaccion(transaccion) {
 function borrarDelHistorial(transaccion) {
     const index = historial.indexOf(transaccion)
     historial.splice(index,1)
+    localStorage.setItem('historial', JSON.stringify(historial))
     pintarTodoHistorial()
+    pintarTotales()
 }
 
 
@@ -158,3 +171,5 @@ function pintarTotales(){
 }
 
 
+recuperarHistorial()
+pintarTotales()
