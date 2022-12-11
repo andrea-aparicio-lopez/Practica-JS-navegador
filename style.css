@@ -1,6 +1,6 @@
 /* LAYOUT */
 :root {
-    --background-color: aliceblue;
+    --background-color: rgb(221, 230, 230);
     /*rgb(246, 246, 246)*/
     --main-heading-color: rgb(18, 63, 72);
     --hover-button-color: rgb(55, 148, 136);
@@ -205,6 +205,7 @@ header {
 }
 
 .botonBorrar {
+    font-family: 'Google Material Icons';
     align-self: center;
     justify-self: center;
     width: 75%;

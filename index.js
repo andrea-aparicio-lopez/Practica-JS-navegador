@@ -41,17 +41,16 @@ FormNuevaTransaccion.addEventListener("submit", (event) => {
     if (fechaTransaccion.value){
         transaccion.fecha = fechaTransaccion.value
     }else{
-        // Añadir fecha actual
+        transaccion.fecha = obtenerFechaActual()
     }
 
     // console.log(transaccion)
     historial.unshift(transaccion)
+    ordenarHistorial()
     historial.map((transac, index) => transac.id = index + 1)
     pintarTodoHistorial()
-    // pintarTransaccion(transaccion)
     pintarTotales()
     
-    //localStorage.clear()
     localStorage.setItem('historial', JSON.stringify(historial))
 
     for (const tipo of tipoTransaccion){
@@ -61,13 +60,24 @@ FormNuevaTransaccion.addEventListener("submit", (event) => {
     }
     conceptoTransaccion.value = '';
     cantidadTransaccion.value = '';
-    fechaTransaccion.value = '';
-    
+    fechaTransaccion.value = '';   
 })
 
 
+function obtenerFechaActual() {
+    const date = new Date()
+    let year = date.getFullYear()
+    let month = date.getMonth()
+    let day = date.getDate()
+    let fecha = `${year}-${month}-${day}`
+    return fecha
+}
+
 // HISTORIAL
-// sort historial por fecha
+function ordenarHistorial() {
+    return historial.sort((a,b) => new Date(b.fecha) - new Date(a.fecha))
+}
+
 function pintarTodoHistorial() {
     historialElement.innerText = ''
     historial.forEach(transaccion => {
@@ -98,7 +108,7 @@ function pintarTransaccion(transaccion) {
 
         const deleteButtonElement = document.createElement('button')
         deleteButtonElement.setAttribute("class", "botonBorrar")
-        deleteButtonElement.innerHTML = `🗙`
+        deleteButtonElement.innerHTML = `&#x1F5D9;`
 
         transaccionElement.append(deleteButtonElement)
         historialElement.append(transaccionElement)
@@ -107,7 +117,6 @@ function pintarTransaccion(transaccion) {
         
 }
 
-
 function borrarDelHistorial(transaccion) {
     const index = historial.indexOf(transaccion)
     historial.splice(index,1)
@@ -115,7 +124,6 @@ function borrarDelHistorial(transaccion) {
     pintarTodoHistorial()
     pintarTotales()
 }
-
 
 // TOTALES
 const ingresoTotalElement = document.querySelector('#ingreso-total')
