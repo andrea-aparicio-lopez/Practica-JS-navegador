@@ -29,32 +29,38 @@
             <!-- </div> -->
         </div>
 
+        
         <div class="seccion-transacciones">
-            <h2 class="subheading">Nueva transacción</h2>
-            <hr>
-            <form action="" id="form-nueva-transaccion">
-                <div class="switch-input" id="ingreso-gasto">
-                    <input required type="radio" class="switch-input-button" id="switch-ingreso" name="switch-input" value="ingreso">
-                    <label for="switch-ingreso" class="switch-input-label" id="ingreso-input-label">INGRESO</label>
-                    
-                    <input required type="radio" class="switch-input-button" id="switch-gasto" name="switch-input" value="gasto">
-                    <label for="switch-gasto" class="switch-input-label" id="gasto-input-label">GASTO</label>
-                </div>
+            <details>
+                <summary>
+                    <h2 class="subheading">Nueva transacción</h2>
+                    <hr>
+                </summary>
+                <form action="" id="form-nueva-transaccion">
+                    <div class="switch-input" id="ingreso-gasto">
+                        <input required type="radio" class="switch-input-button" id="switch-ingreso" name="switch-input" value="ingreso">
+                        <label for="switch-ingreso" class="switch-input-label" id="ingreso-input-label">INGRESO</label>
+                        
+                        <input required type="radio" class="switch-input-button" id="switch-gasto" name="switch-input" value="gasto">
+                        <label for="switch-gasto" class="switch-input-label" id="gasto-input-label">GASTO</label>
+                    </div>
 
 
-                <input required type="text" class="inline-input" id="input-concepto" placeholder="Concepto*">
-                <label for="input-concepto"></label>
+                    <input required type="text" class="inline-input" id="input-concepto" placeholder="Concepto*">
+                    <label for="input-concepto"></label>
 
-                <input required type="number" class="inline-input" id="input-cantidad" placeholder="Cantidad*">
-                <label for="input-cantidad"></label>
+                    <input required type="number" class="inline-input" id="input-cantidad" placeholder="Cantidad*">
+                    <label for="input-cantidad"></label>
 
-                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="inline-input" id="input-fecha" placeholder="Fecha">
-                <label for="input-fecha"></label>
+                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="inline-input" id="input-fecha" placeholder="Fecha">
+                    <label for="input-fecha"></label>
 
-                <span class="obligatorio">* Obligatorio</span>
-                <button type="submit" id="boton-anadir">Añadir</button>
-            </form>
+                    <span class="obligatorio">* Obligatorio</span>
+                    <button type="submit" id="boton-anadir">Añadir</button>
+                </form>
+            </details>
         </div>
+        
 
         <div class="seccion-historial">
             <h2 class="subheading">Historial</h2>

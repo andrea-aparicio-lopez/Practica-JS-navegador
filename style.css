@@ -1,7 +1,7 @@
 /* LAYOUT */
 :root {
     --background-color: rgb(221, 230, 230);
-    /*rgb(246, 246, 246)*/
+    /* --background-gradient: linear-gradient(45deg, ) ; */
     --main-heading-color: rgb(18, 63, 72);
     --hover-button-color: rgb(55, 148, 136);
     --transacciones: white;
@@ -107,6 +107,12 @@ header {
 
 /* FORMULARIO */
 
+details > summary {
+    cursor: pointer;
+    border: none;
+    list-style-type: none;
+}
+
 #form-nueva-transaccion {
     display: flex;
     flex-direction: column;
@@ -117,9 +123,9 @@ header {
 
 .inline-input {
     display: inline-block;
-    line-height: 5%;
-    padding: 2% 0;
-    margin: 3% 0;
+    line-height: 5px;
+    padding: 10px 0;
+    margin: 5px 0;
 }
 
 #form-nueva-transaccion .switch-input-button {
@@ -128,8 +134,7 @@ header {
 
 #form-nueva-transaccion .switch-input{
     align-self: center;
-
-    margin-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 #switch-ingreso:checked + label {
@@ -183,10 +188,9 @@ header {
 .transaccionIngresoElement, .transaccionGastoElement {
     display: grid;
     grid-template-columns: 55% 35% 10%;
-    /* border: 1px solid lightgrey;
-    border-bottom-color: grey; */
     padding-left: 5%;
     margin-bottom: 2vh;
+    border-radius: 5px;
 }
 
 .transaccionIngresoElement {
@@ -205,7 +209,6 @@ header {
 }
 
 .botonBorrar {
-    font-family: 'Google Material Icons';
     align-self: center;
     justify-self: center;
     width: 75%;
@@ -225,7 +228,9 @@ header {
     #switch-ingreso + label {
         padding: 7px 9px;
     }
-
+    #form-nueva-transaccion .switch-input{
+        margin-bottom: 10%;
+    }
     #boton-anadir {
         padding: 3% 5%;
     }
