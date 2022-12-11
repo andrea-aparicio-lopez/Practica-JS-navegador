@@ -30,6 +30,10 @@ header {
     color: var(--main-heading-color);
 }
 
+.titulo-principal {
+    font-size: 29px;
+    
+}
 
 /* AHORROS */
 
@@ -38,7 +42,7 @@ header {
     grid-template-areas: 
     ". ahorro ahorro ahorro ."
     ". ingresos . gastos .";
-    grid-template-columns: 01fr 1fr 1vw 1fr 01fr;
+    grid-template-columns: 0.2fr minmax(0,1fr) 1vw minmax(0,1fr) 0.2fr;
     grid-row-gap: 5%;
     padding-bottom: 10%;
 }
@@ -54,13 +58,9 @@ header {
     align-items: center;
 }
 
-/* .seccion-desglose {
-    display: flex;
-    flex-direction: row;
-} */
 
 .seccion-ingresos, .seccion-gastos {
-    padding: 10px 20px;
+    padding: 0px 20px;
     /* border: 1px solid grey; */
     border-radius: 5px;
     background-color: white;
@@ -68,7 +68,9 @@ header {
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
-
+    justify-content: flex-start;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 .seccion-ingresos {
@@ -83,8 +85,12 @@ header {
 
 .cantidad-dinero {
     font-family: inherit;
-    font-size: x-large;
+    font-size: large;
     transition: 0.5s;
+}
+
+#ahorro-total {
+    font-size: x-large;
 }
 
 #ingreso-total-titulo {
@@ -94,13 +100,9 @@ header {
     color: var(--color-gasto);
 }
 
-/* #ingreso-total {
-    color: var(--color-ingreso);
+.cantidad-dinero + .cantidad-dinero-titulo {
+    margin-top: -15px;
 }
-
-#gasto-total {
-    color: var(--color-gasto);
-} */
 
 
 /* FORMULARIO */
@@ -181,18 +183,20 @@ header {
 .transaccionIngresoElement, .transaccionGastoElement {
     display: grid;
     grid-template-columns: 55% 35% 10%;
-    border: 1px solid lightgrey;
-    border-bottom-color: grey;
+    /* border: 1px solid lightgrey;
+    border-bottom-color: grey; */
     padding-left: 5%;
     margin-bottom: 2vh;
 }
 
 .transaccionIngresoElement {
-    background: linear-gradient(to left, var(--color-ingreso), var(--transacciones) 25%);
+    background: linear-gradient(to left, var(--color-ingreso) 10%, var(--transacciones) 10%);
+    border: 1px solid var(--color-ingreso);
 }
 
 .transaccionGastoElement {
-    background: linear-gradient(to left, var(--color-gasto), var(--transacciones) 25%);
+    background: linear-gradient(to left, var(--color-gasto) 10%, var(--transacciones) 10%);
+    border: 1px solid var(--color-gasto);
 }
 
 .cantidadElement {
@@ -211,17 +215,15 @@ header {
 }
 
 @media (max-width: 768px) {
+    header {
+        text-align: center;
+    }
     #switch-gasto + label {
         padding: 7px 15px;
     }
     #switch-ingreso + label {
         padding: 7px 9px;
     }
-    /* #form-nueva-transaccion .switch-input{
-        display: flex;
-        flex-grow: 4;
-        flex-shrink: 4;
-    } */
 
     #boton-anadir {
         padding: 3% 5%;
